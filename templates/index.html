@@ -3,129 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cruddy</title>
+    <title>Lab Informatika Telkom University</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container" style="max-width: 400px; margin-top: 40px;">
-        <form action="/sendData" method="post">
+    <div class="container" style="max-width: 1080px; margin-top: 40px;">
+        <form action="/view" method="get">
+            <button type="submit" class="btn btn-primary">View TP</button>
+        </form>
+    </div>
+
+    <div class="container" style="max-width: 1080px; margin-top: 40px;">
+        <form action="/addTP" method="post">
             <div class="mb-3">
-                <label for="nama" class="form-label">Nama</label>
-                <input type="text" class="form-control" id="nama" name="nama">
+                <label for="judul" class="form-label">Judul</label>
+                <input type="text" class="form-control" id="judul" name="judul">
             </div>
             <div class="mb-3">
-                <label for="nim" class="form-label">nim</label>
-                <input type="text" class="form-control" id="nim" name="nim">
+                <label for="subJudul" class="form-label">Sub Judul</label>
+                <input type="text" class="form-control" id="subJudul" name="subJudul">
             </div>
             <div class="mb-3">
-                <label for="matakuliah" class="form-label">Mata Kuliah</label>
-                <input type="text" class="form-control" id="matakuliah" name="matakuliah">
+                <label for="kategori" class="form-label">Kategori</label>
+                <input type="text" class="form-control" id="kategori" name="kategori">
             </div>
             <div class="mb-3">
-                <label for="sks" class="form-label">SKS</label>
-                <input type="text" class="form-control" id="sks" name="sks">
+                <label for="deadline" class="form-label">Deadline TP</label>
+                <input type="datetime-local" class="form-control" id="deadline" name="deadline">
             </div>
             <div class="mb-3">
-                <label for="nilai" class="form-label">Nilai</label>
-                <input type="text" class="form-control" id="nilai" name="nilai">
+                <label for="deskripsi" class="form-label">Deskripsi TP</label>
+                <input type="text" class="form-control" id="deskripsi" name="deskripsi">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        {{ range .data }}
-            <div class="card mt-3">
-                <div class="card-body">
-                    <h5 class="card-title">{{ .Nama }}</h5>
-                    <p class="card-text">NIM: {{ .Nim }}</p>
-                    <p class="card-text">Mata Kuliah: {{ .Matakuliah }}</p>
-                    <p class="card-text">SKS: {{ .Sks }}</p>
-                    <p class="card-text">Nilai: {{ .Nilai }}</p>
-                    <p class="card-text">Indeks: {{ .Indeks }}</p>
-                    <div class="d-flex gap-2 mt-3">
-                        <button
-                            type="button"
-                            class="btn btn-sm btn-warning"
-                            data-bs-toggle="modal"
-                            data-bs-target="#updateModal"
-                            data-id="{{ .Id }}"
-                            data-nama="{{ .Nama }}"
-                            data-nim="{{ .Nim }}"
-                            data-matakuliah="{{ .Matakuliah }}"
-                            data-sks="{{ .Sks }}"
-                            data-nilai="{{ .Nilai }}"
-                        >
-                            Update
-                        </button>
-                        <form action="/delete/{{ .Id }}" method="post" class="m-0">
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        {{ end }}
     </div>
-
-    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="updateModalLabel">Update Data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="updateForm" method="post">
-                    <input type="hidden" id="updateId" name="id" value="">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="updateNama" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="updateNama" name="nama" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="updateNim" class="form-label">NIM</label>
-                            <input type="text" class="form-control" id="updateNim" name="nim" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="updateMatakuliah" class="form-label">Mata Kuliah</label>
-                            <input type="text" class="form-control" id="updateMatakuliah" name="matakuliah" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="updateSks" class="form-label">SKS</label>
-                            <input type="number" class="form-control" id="updateSks" name="sks" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="updateNilai" class="form-label">Nilai</label>
-                            <input type="number" class="form-control" id="updateNilai" name="nilai" required>
-                        </div>
-                        <p class="text-muted small mb-0">Indeks akan dihitung otomatis saat disimpan.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const updateModal = document.getElementById('updateModal');
-        const updateForm = document.getElementById('updateForm');
-        updateModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            if (!button) return;
-            const id = button.getAttribute('data-id');
-            const nama = button.getAttribute('data-nama');
-            const nim = button.getAttribute('data-nim');
-            const matakuliah = button.getAttribute('data-matakuliah');
-            const sks = button.getAttribute('data-sks');
-            const nilai = button.getAttribute('data-nilai');
-
-            updateForm.action = '/update/' + id;
-            document.getElementById('updateId').value = id;
-            document.getElementById('updateNama').value = nama;
-            document.getElementById('updateNim').value = nim;
-            document.getElementById('updateMatakuliah').value = matakuliah;
-            document.getElementById('updateSks').value = sks;
-            document.getElementById('updateNilai').value = nilai;
-        });
-    </script>
 </body>
 </html>
